@@ -1,4 +1,6 @@
 const express = require("express");
+const colors = require("colors");
+const { errorHandler } = require("./middleware/errorMiddleware");
 const dotenv = require("dotenv").config();
 const port = process.env.PORT || 5000;
 
@@ -14,6 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/goals", require("./routes/goalRoutes"));
 
+app.use(errorHandler);
+
+//Remove below code
 app.get("", (req, res) => {
   res.status(404).json({ msg: "Incorrect endpoint" });
 });
